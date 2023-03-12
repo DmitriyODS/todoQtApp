@@ -90,11 +90,14 @@ class MainWindow(QWidget, Ui_keepMain):
             self.itemsListWidget.addItem(q_list_item)
             self.itemsListWidget.setItemWidget(q_list_item, item_view)
 
+    def clear_selection(self):
+        self.itemsListWidget.clearSelection()
+        self.app.clear_selection()
+
     def update_list_view(self):
         cur_section = self.app.get_cur_section()
-        self.itemsListWidget.clearSelection()
+        self.clear_selection()
         self.itemsListWidget.clear()
-        self.app.clear_selection()
         self.update_info_selection_item()
         if cur_section == SECTION_KEEPS:
             self.update_list_view_keeps()
@@ -110,6 +113,7 @@ class MainWindow(QWidget, Ui_keepMain):
         self.update_list_view()
 
     def on_add_keep(self):
+        self.clear_selection()
         self.edit_dialog.show_create()
 
     def on_edit_keep(self):
